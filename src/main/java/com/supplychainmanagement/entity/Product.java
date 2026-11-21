@@ -1,5 +1,5 @@
 
-package com.hackathon.supplychainmanagement.entity;
+package com.supplychainmanagement.entity;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
