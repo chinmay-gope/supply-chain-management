@@ -8,6 +8,7 @@ import com.supplychainmanagement.service.ReportService;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -23,6 +24,7 @@ public class ReportController {
         this.reportService = reportService;
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'INVENTORY_MANAGER', 'PURCHASE_MANAGER', 'SALES_MANAGER')")
     @GetMapping("/sales")
     public ResponseEntity<SalesReportResponse> getSalesReport(
             @RequestParam
@@ -42,6 +44,7 @@ public class ReportController {
                 reportService.getSalesReport(startDate, endDate));
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'INVENTORY_MANAGER', 'PURCHASE_MANAGER', 'SALES_MANAGER')")
     @GetMapping("/inventory")
     public ResponseEntity<InventoryReportResponse> getInventoryReport() {
 
@@ -49,6 +52,7 @@ public class ReportController {
                 reportService.getInventoryReport());
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'INVENTORY_MANAGER', 'PURCHASE_MANAGER', 'SALES_MANAGER')")
     @GetMapping("/low-stock")
     public ResponseEntity<List<Product>> getLowStockReport() {
 
