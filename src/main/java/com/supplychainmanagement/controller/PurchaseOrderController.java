@@ -7,6 +7,7 @@ import com.supplychainmanagement.service.PurchaseOrderService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class PurchaseOrderController {
         this.purchaseOrderService = purchaseOrderService;
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'PURCHASE_MANAGER')")
     @PostMapping
     public ResponseEntity<PurchaseOrderResponse> create(
             @Valid @RequestBody PurchaseOrderRequest request) {
@@ -29,11 +31,13 @@ public class PurchaseOrderController {
                 .body(purchaseOrderService.create(request));
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'PURCHASE_MANAGER')")
     @GetMapping
     public ResponseEntity<List<PurchaseOrderResponse>> getAll() {
         return ResponseEntity.ok(purchaseOrderService.getAll());
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'PURCHASE_MANAGER')")
     @GetMapping("/{id}")
     public ResponseEntity<PurchaseOrderResponse> getById(
             @PathVariable Long id) {
@@ -41,6 +45,7 @@ public class PurchaseOrderController {
         return ResponseEntity.ok(purchaseOrderService.getById(id));
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'PURCHASE_MANAGER')")
     @PutMapping("/{id}")
     public ResponseEntity<PurchaseOrderResponse> update(
             @PathVariable Long id,
@@ -50,6 +55,7 @@ public class PurchaseOrderController {
                 purchaseOrderService.update(id, request));
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'PURCHASE_MANAGER')")
     @PatchMapping("/{id}/approve")
     public ResponseEntity<PurchaseOrderResponse> approve(
             @PathVariable Long id) {
@@ -57,6 +63,7 @@ public class PurchaseOrderController {
         return ResponseEntity.ok(purchaseOrderService.approve(id));
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'PURCHASE_MANAGER')")
     @PatchMapping("/{id}/receive")
     public ResponseEntity<PurchaseOrderResponse> receive(
             @PathVariable Long id) {
@@ -64,6 +71,7 @@ public class PurchaseOrderController {
         return ResponseEntity.ok(purchaseOrderService.receive(id));
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'PURCHASE_MANAGER')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
 
