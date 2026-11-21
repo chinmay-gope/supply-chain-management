@@ -5,6 +5,7 @@ import com.supplychainmanagement.dto.response.ForecastResponse;
 import com.supplychainmanagement.service.ForecastService;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class ForecastController {
         this.forecastService = forecastService;
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'INVENTORY_MANAGER', 'PURCHASE_MANAGER')")
     @PostMapping("/{productId}")
     public ResponseEntity<List<ForecastResponse>> generateForecast(
             @PathVariable Long productId,
@@ -28,6 +30,7 @@ public class ForecastController {
                 forecastService.forecast(productId, days));
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'INVENTORY_MANAGER', 'PURCHASE_MANAGER')")
     @GetMapping("/{productId}")
     public ResponseEntity<List<ForecastResponse>> getForecast(
             @PathVariable Long productId) {
