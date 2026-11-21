@@ -1,4 +1,4 @@
-package com.hackathon.supplychainmanagement.model;
+package com.hackathon.supplychainmanagement.entity;
 
 import jakarta.persistence.Table;
 import org.hibernate.annotations.Audited;
