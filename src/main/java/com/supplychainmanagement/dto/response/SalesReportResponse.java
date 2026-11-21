@@ -8,7 +8,7 @@ public record SalesReportResponse(
         LocalDate startDate,
         LocalDate endDate,
         Long totalSales,
-        Long totalItemsSold,
+        int totalItemsSold,
         BigDecimal totalRevenue,
         BigDecimal averageSaleValue
 
