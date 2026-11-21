@@ -1,5 +1,5 @@
 
-package com.hackathon.supplychainmanagement.entity;
+package com.supplychainmanagement.entity;
 
 import java.time.LocalDateTime;
 
@@ -9,30 +9,21 @@ import lombok.Setter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "suppliers")
+@Table(name = "categories")
 @Getter
 @Setter
 @NoArgsConstructor
-public class Supplier {
+public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 150)
+    @Column(nullable = false, unique = true, length = 100)
     private String name;
 
-    @Column(length = 150)
-    private String email;
-
-    @Column(length = 20)
-    private String phone;
-
     @Column(length = 255)
-    private String address;
-
-    @Column(nullable = false)
-    private Boolean active = true;
+    private String description;
 
     private LocalDateTime createdAt;
 
