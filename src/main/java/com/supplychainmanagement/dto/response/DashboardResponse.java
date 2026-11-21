@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 
 public record DashboardResponse(
 
-        Long totalProducts,
+        int totalProducts,
         Long totalSuppliers,
         Long totalPurchaseOrders,
         Long totalSales,
