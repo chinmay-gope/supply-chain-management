@@ -2,6 +2,7 @@
 package com.supplychainmanagement.config;
 
 import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +19,7 @@ public class CorsConfig {
         CorsConfiguration configuration = new CorsConfiguration();
 
         configuration.setAllowedOrigins(
-            Arrays.asList("http://localhost:5173")
+                List.of("http://localhost:5173","http://localhost:3000")
         );
 
         configuration.setAllowedMethods(

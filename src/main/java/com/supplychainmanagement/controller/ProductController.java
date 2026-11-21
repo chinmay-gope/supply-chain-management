@@ -4,6 +4,7 @@ package com.supplychainmanagement.controller;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.supplychainmanagement.dto.request.ProductRequest;
@@ -23,6 +24,7 @@ public class ProductController {
 
     private final ProductService productService;
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'PURCHASE_MANAGER')")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ProductResponse createProduct(
@@ -34,6 +36,7 @@ public class ProductController {
                 productService.createProduct(product));
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'PURCHASE_MANAGER')")
     @GetMapping
     public List<ProductResponse> getAllProducts() {
         return productService.getAllProducts()
@@ -42,12 +45,14 @@ public class ProductController {
                 .toList();
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'PURCHASE_MANAGER')")
     @GetMapping("/{id}")
     public ProductResponse getProductById(@PathVariable Long id) {
         return EntityMapper.toProductResponse(
                 productService.getProductById(id));
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'PURCHASE_MANAGER')")
     @GetMapping("/search")
     public List<ProductResponse> searchProducts(
             @RequestParam String name) {
@@ -58,6 +63,7 @@ public class ProductController {
                 .toList();
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'PURCHASE_MANAGER')")
     @GetMapping("/category/{categoryId}")
     public List<ProductResponse> getProductsByCategory(
             @PathVariable Long categoryId) {
@@ -68,6 +74,7 @@ public class ProductController {
                 .toList();
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'PURCHASE_MANAGER')")
     @GetMapping("/active")
     public List<ProductResponse> getActiveProducts() {
         return productService.getActiveProducts()
@@ -76,6 +83,7 @@ public class ProductController {
                 .toList();
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'PURCHASE_MANAGER')")
     @GetMapping("/low-stock")
     public List<ProductResponse> getLowStockProducts() {
         return productService.getLowStockProducts()
@@ -84,6 +92,7 @@ public class ProductController {
                 .toList();
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'PURCHASE_MANAGER')")
     @PutMapping("/{id}")
     public ProductResponse updateProduct(
             @PathVariable Long id,
@@ -95,6 +104,7 @@ public class ProductController {
                 productService.updateProduct(id, product));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteProduct(@PathVariable Long id) {

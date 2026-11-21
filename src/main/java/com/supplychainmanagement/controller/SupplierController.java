@@ -4,6 +4,7 @@ package com.supplychainmanagement.controller;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.supplychainmanagement.dto.request.SupplierRequest;
@@ -22,6 +23,7 @@ public class SupplierController {
 
     private final SupplierService supplierService;
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'PURCHASE_MANAGER', 'INVENTORY_MANAGER')")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public SupplierResponse createSupplier(
@@ -33,6 +35,7 @@ public class SupplierController {
                 supplierService.createSupplier(supplier));
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'PURCHASE_MANAGER', 'INVENTORY_MANAGER')")
     @GetMapping
     public List<SupplierResponse> getAllSuppliers() {
         return supplierService.getAllSuppliers()
@@ -41,12 +44,14 @@ public class SupplierController {
                 .toList();
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'PURCHASE_MANAGER', 'INVENTORY_MANAGER')")
     @GetMapping("/{id}")
     public SupplierResponse getSupplierById(@PathVariable Long id) {
         return EntityMapper.toSupplierResponse(
                 supplierService.getSupplierById(id));
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'PURCHASE_MANAGER', 'INVENTORY_MANAGER')")
     @GetMapping("/search")
     public List<SupplierResponse> searchSuppliers(
             @RequestParam String name) {
@@ -57,6 +62,7 @@ public class SupplierController {
                 .toList();
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'PURCHASE_MANAGER', 'INVENTORY_MANAGER')")
     @GetMapping("/active")
     public List<SupplierResponse> getActiveSuppliers() {
         return supplierService.getActiveSuppliers()
@@ -65,6 +71,7 @@ public class SupplierController {
                 .toList();
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'PURCHASE_MANAGER', 'INVENTORY_MANAGER')")
     @PutMapping("/{id}")
     public SupplierResponse updateSupplier(
             @PathVariable Long id,
@@ -74,6 +81,7 @@ public class SupplierController {
                 supplierService.updateSupplier(id, mapRequest(request)));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteSupplier(@PathVariable Long id) {
