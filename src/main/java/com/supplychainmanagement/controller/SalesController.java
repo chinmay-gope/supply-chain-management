@@ -7,6 +7,7 @@ import com.supplychainmanagement.service.SalesService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class SalesController {
         this.salesService = salesService;
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'PURCHASE_MANAGER', 'STAFF')")
     @PostMapping
     public ResponseEntity<SaleResponse> create(
             @Valid @RequestBody SaleRequest request) {
@@ -29,11 +31,13 @@ public class SalesController {
                 .body(salesService.create(request));
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'PURCHASE_MANAGER', 'STAFF')")
     @GetMapping
     public ResponseEntity<List<SaleResponse>> getAll() {
         return ResponseEntity.ok(salesService.getAll());
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'PURCHASE_MANAGER', 'STAFF')")
     @GetMapping("/{id}")
     public ResponseEntity<SaleResponse> getById(
             @PathVariable Long id) {
@@ -41,6 +45,7 @@ public class SalesController {
         return ResponseEntity.ok(salesService.getById(id));
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'PURCHASE_MANAGER', 'STAFF')")
     @PatchMapping("/{id}/cancel")
     public ResponseEntity<SaleResponse> cancel(
             @PathVariable Long id) {
