@@ -1,4 +1,4 @@
-package com.hackathon.supplychainmanagement.entity;
+package com.supplychainmanagement.entity;
 
 public enum SaleStatus {
     COMPLETED,

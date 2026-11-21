@@ -1,5 +1,5 @@
 
-package com.hackathon.supplychainmanagement.entity;
+package com.supplychainmanagement.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -33,8 +33,10 @@ public class PurchaseRecommendation {
     @Column(length = 1000)
     private String reason;
 
+    @Builder.Default
     @Enumerated(EnumType.STRING)
-    private RecommendationStatus status;
+    @Column(nullable = false)
+    private RecommendationStatus status = RecommendationStatus.PENDING;
 
     private LocalDateTime generatedAt;
 }
